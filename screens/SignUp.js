@@ -10,6 +10,7 @@ import ReactNative, {
 import t from 'tcomb-form-native';
 import Person, { formOptions } from '../models/Person';
 import signUp from '../actions/users/sign-up';
+import { connect } from 'react-redux';
 
 import styles from './SignUp.styles';
 
@@ -42,8 +43,9 @@ export default class SignUp extends Component {
         const newUser = form.getValue();
         if (!newUser) return;
         console.log(newUser);
-        signUp(newUser);
+       // signUp(newUser);
         this.clearForm();
+        this.props.signUp(newUser);
     }
 
     render() {
@@ -73,3 +75,7 @@ export default class SignUp extends Component {
         );
     }
 }
+
+const mapStateToProps = ({ loading }) => ({ loading });
+
+export default connect(mapStateToProps, { signUp })(SignUp);
